@@ -648,7 +648,8 @@ class SessionState:
         # We return a copy, so that reference types can't be accidentally
         # mutated by user code.
         widget_value = cast(T, self[widget_id])
-        widget_value = deepcopy(widget_value)
+        if not isinstance(widget_value, dict):
+            widget_value = deepcopy(widget_value)
 
         # widget_value_changed indicates to the caller that the widget's
         # current value is different from what is in the frontend.
